@@ -1,7 +1,7 @@
 const assert = require('nanoassert')
 class Multiset {
-  constructor (elements = [], compare = x => x) {
-    this.compare = compare
+  constructor (elements = [], key = x => x) {
+    this.key = key
     this.data = new Map()
     this.counts = new Map()
 
@@ -22,7 +22,7 @@ class Multiset {
 
   add (elm, n = 1) {
     assert(n > 0, 'n must be greater than 0')
-    const key = this.compare(elm)
+    const key = this.key(elm)
     if (this.data.has(key) === false) {
       this.data.set(key, elm)
       this.counts.set(key, n)
@@ -37,7 +37,7 @@ class Multiset {
 
   delete (elm, n = 1) {
     assert(n > 0, 'n must be greater than 0')
-    const key = this.compare(elm)
+    const key = this.key(elm)
     const count = this.counts.get(key)
     if (this.counts != null) {
       if (count > n) {
@@ -56,12 +56,12 @@ class Multiset {
   }
 
   has (elm) {
-    const key = this.compare(elm)
+    const key = this.key(elm)
     return this.data.has(key)
   }
 
   count (elm) {
-    const key = this.compare(elm)
+    const key = this.key(elm)
     return this.counts.get(key) || 0
   }
 
@@ -88,7 +88,7 @@ class Multiset {
   }
 
   filter (fn) {
-    var m = new Multiset([], this.compare)
+    var m = new Multiset([], this.key)
 
     for (const elm of this.data.values()) {
       var keep = fn(elm)
@@ -100,13 +100,13 @@ class Multiset {
 
   difference (b) {
     if (Array.isArray(b)) {
-      const m = new Multiset(b, this.compare)
+      const m = new Multiset(b, this.key)
       return this.difference(m)
     }
 
     if (b instanceof Multiset) {
       // do something
-      const m = new Multiset([], this.compare)
+      const m = new Multiset([], this.key)
 
       for (const [elm, count] of this.entries()) {
         const otherCount = b.count(elm)
@@ -117,7 +117,7 @@ class Multiset {
       return m
     }
 
-    throw new Error('Unsupported compare rhs')
+    throw new Error('Unsupported key rhs')
   }
 
   forEach (...args) {
@@ -133,10 +133,10 @@ class Multiset {
   }
 
   clone () {
-    var m = new Multiset([], this.compare)
+    var m = new Multiset([], this.key)
 
     for (const elm of this.data.values()) {
-      var count = this.counts.get(this.compare(elm))
+      var count = this.counts.get(this.key(elm))
 
       m.add(elm, count)
     }
@@ -146,7 +146,7 @@ class Multiset {
 
   * [Symbol.iterator] () {
     for (const elm of this.data.values()) {
-      var count = this.counts.get(this.compare(elm))
+      var count = this.counts.get(this.key(elm))
 
       while (count--) {
         yield elm
@@ -156,7 +156,7 @@ class Multiset {
 
   * entries () {
     for (const elm of this.data.values()) {
-      var count = this.counts.get(this.compare(elm))
+      var count = this.counts.get(this.key(elm))
 
       yield [elm, count]
     }

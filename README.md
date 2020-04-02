@@ -23,10 +23,10 @@ console.log(m.uniqueSize) // => 6
 
 ## API
 
-### `var m = new Multiset([elements = []], [compare = x => x])`
+### `var m = new Multiset([elements = []], [key = x => x])`
 
 Create a new Multiset with optional initial array of `elements`, and optional
-identity `compare`, which defaults to strict equality.
+identity `key`, which defaults to strict equality.
 
 ### `const size = m.size`
 
@@ -39,13 +39,13 @@ Number of unique elements in the Multiset.
 ### `const m = m.add(elm, [n = 1])`
 
 Add `elm` to the Multiset, with optional multiplicity `n`.
-Equality is checked with `compare`.
+Equality is checked with `key`.
 
 ### `const m = m.delete(elm, [n = 1])`
 
 Delete `elm` from the Multiset, optionally decrementing by `n`.
 If final count is 0 or less, the element is removed from the Multiset.
-Equality is checked with `compare`.
+Equality is checked with `key`.
 
 ### `const bool = m.has(elm)`
 
