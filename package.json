@@ -1,7 +1,7 @@
 {
   "name": "@emilbayes/multiset",
   "version": "1.0.0",
-  "description": "",
+  "description": "Multiset implementation",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
