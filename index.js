@@ -1,6 +1,6 @@
 const assert = require('nanoassert')
 class Multiset {
-  constructor (elements = [], compare = (x) => x) {
+  constructor (elements = [], compare = x => x) {
     this.compare = compare
     this.data = new Map()
     this.counts = new Map()
