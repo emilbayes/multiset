@@ -4,6 +4,8 @@ const Multiset = require('.')
 test('simple', function (assert) {
   const m = new Multiset([1, 1, 2, 3, 4, 4, 3, 8, 1])
   const m2 = m.clone()
+  assert.ok(m.equal(m2))
+  assert.ok(m.subset(m2))
   assert.equal(m.count(1), 3)
   assert.equal(m.count(4), 2)
   assert.equal(m.size, 9)
@@ -24,6 +26,8 @@ test('simple', function (assert) {
   assert.equal(m.uniqueSize, 4)
 
   const m3 = m2.filter(n => n > 2)
+  assert.ok(m3.subset(m2))
+  assert.notOk(m3.subset(m))
   assert.notOk(m3.has(1))
   assert.notOk(m3.has(2))
   assert.ok(m3.has(3))

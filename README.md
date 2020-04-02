@@ -55,6 +55,15 @@ Check for existence.
 
 Count occurrences of `elm` in the Multiset.
 
+### `const bool = m.equal(rhs)`
+
+Check if `m` and `rhs` contain the same elements with same multiplicity.
+
+### `const bool = m.subset(superset)`
+
+Check if `m` is a subset of `superset`, meaning `superset` contain the same
+elements with at least the least the same multiplicity as `m`.
+
 ### `const m2 = m.filter(fn)`
 
 Filter unique elements from the Multiset, preserving count in the new Multiset.

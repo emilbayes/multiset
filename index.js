@@ -65,6 +65,28 @@ class Multiset {
     return this.counts.get(key) || 0
   }
 
+  equal (rhs) {
+    assert(rhs instanceof Multiset, 'rhs must be Multiset')
+    if (this.size !== rhs.size) return false
+    if (this.uniqueSize !== rhs.uniqueSize) return false
+
+    for (var [elm, count] of this.entries()) {
+      if (rhs.count(elm) !== count) return false
+    }
+
+    return true
+  }
+
+  subset (superset) {
+    assert(superset instanceof Multiset, 'superset must be Multiset')
+
+    for (var [elm, count] of this.entries()) {
+      if (superset.count(elm) < count) return false
+    }
+
+    return true
+  }
+
   filter (fn) {
     var m = new Multiset([], this.compare)
 
