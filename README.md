@@ -1,5 +1,7 @@
 # `@emilbayes/multiset`
 
+[![Build Status](https://travis-ci.org/emilbayes/multiset.svg?branch=master)](https://travis-ci.org/emilbayes/multiset)
+
 > Multiset implementation
 
 ## Usage
